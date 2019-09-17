@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 const DataButtons = props => {
   const { inputs, setInputs, data, setUpdateData } = props
-  const [isUpdated, setIsUpdated] = useState(false)
 
   const handleCreateData = (e) => {
     const inputEls = document.querySelectorAll('input')
@@ -21,10 +20,10 @@ const DataButtons = props => {
 
   return (
     <div className="d-flex justify-content-center">
-      <button className="btn btn-success" type="button" id="btn-create" onClick={handleCreateData}>Create</button>
-      <button className="btn btn-primary" type="button" id="btn-read">Read</button>
-      <button className="btn btn-warning" type="button" id="btn-update" disabled>Update</button>
-      <button className="btn btn-danger" type="button" id="btn-delete" onClick={handleDeleteAll}>Delete All</button>
+      <button className="btn btn-success" type="button" onClick={handleCreateData}>Create</button>
+      <button className="btn btn-primary" type="button">Read</button>
+      <button className="btn btn-warning" type="button" disabled>Update</button>
+      <button className="btn btn-danger" type="button" onClick={handleDeleteAll}>Delete All</button>
     </div>
   )
 }

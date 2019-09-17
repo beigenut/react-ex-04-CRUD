@@ -25,13 +25,14 @@ export const FetchDataProvider = (props) => {
   }]
   const [data, setUpdateData] = useState([])
   const [inputs, setInputs] = useState({})
+  const [isUpdated, setIsUpdated] = useState(false)
 
   useEffect(() => {
     setUpdateData(defaultData)
   }, [])
 
   return (
-    <FetchDataContext.Provider value={[data, setUpdateData, inputs, setInputs]}>
+    <FetchDataContext.Provider value={[data, setUpdateData, inputs, setInputs, isUpdated, setIsUpdated]}>
       {props.children}
     </FetchDataContext.Provider>
   )
