@@ -1,5 +1,4 @@
 import React from 'react'
-import { Form, Col, Row } from 'react-bootstrap'
 
 const DataForm = (props) => {
   const { inputs, setInputs } = props

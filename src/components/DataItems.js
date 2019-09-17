@@ -1,16 +1,33 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Form, Col } from 'react-bootstrap'
-import { Edit, Trash } from 'grommet-icons'
+import { Edit, Trash, Close } from 'grommet-icons'
+import { FetchDataContext } from '../contexts/FetchDataContext'
 
 const DataItems = (props) => {
-  const { sku, productName, price, seller, onDelete } = props
+  const { sku, productName, price, seller } = props
+  const [data, setUpdateData, inputs, setInputs, isUpdated, setIsUpdated] = useContext(FetchDataContext)
+
+  const handleDeleteData = sku => {
+    const newData = data.filter(i => i.sku !== sku)
+    setUpdateData(newData)
+    alert('Deleted')
+  }
+
+  const handleDataChange = (e) => {
+    e.target.style.backgroundColor = '#ffc107'
+  }
+
+  const handleBlankString = (e) => {
+    e.target.nextElementSibling.value = ''
+  }
+
   return (
     < tr >
       <td>
         <Form>
           <Form.Group controlId="skuForm">
             <Col sm="10">
-              <Form.Control plaintext readOnly defaultValue={sku} />
+              {isUpdated ? <><Close onClick={handleBlankString} size="small" color="#fff" /> <Form.Control onChange={handleDataChange} defaultValue={sku} /></> : <Form.Control plaintext readOnly defaultValue={sku} />}
             </Col>
           </Form.Group>
         </Form>
@@ -19,7 +36,7 @@ const DataItems = (props) => {
         <Form>
           <Form.Group controlId="productNameForm">
             <Col sm="10">
-              <Form.Control plaintext readOnly defaultValue={productName} />
+              {isUpdated ? <Form.Control onChange={handleDataChange} defaultValue={productName} /> : <Form.Control plaintext readOnly defaultValue={productName} />}
             </Col>
           </Form.Group>
         </Form>
@@ -28,7 +45,7 @@ const DataItems = (props) => {
         <Form>
           <Form.Group controlId="sellerForm">
             <Col sm="10">
-              <Form.Control plaintext readOnly defaultValue={seller} />
+              {isUpdated ? <Form.Control onChange={handleDataChange} defaultValue={seller} /> : <Form.Control plaintext readOnly defaultValue={seller} />}
             </Col>
           </Form.Group>
         </Form>
@@ -37,13 +54,13 @@ const DataItems = (props) => {
         <Form>
           <Form.Group controlId="priceForm">
             <Col sm="10">
-              <Form.Control plaintext readOnly defaultValue={price} />
+              {isUpdated ? <Form.Control onChange={handleDataChange} defaultValue={price} /> : <Form.Control plaintext readOnly defaultValue={price} />}
             </Col>
           </Form.Group>
         </Form>
       </td>
       <td><Edit /></td>
-      <td><Trash onClick={e => onDelete(sku)} /></td>
+      <td><Trash onClick={e => handleDeleteData(sku)} /></td>
     </tr >
   )
 }

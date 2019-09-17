@@ -7,13 +7,13 @@ import DataButtons from '../components/DataButtons'
 import DataList from '../components/DataList'
 
 const DataTable = () => {
-  const [data, setUpdateData, inputs, setInputs] = useContext(FetchDataContext)
+  const [data, setUpdateData, inputs, setInputs, isUpdated, setIsUpdated] = useContext(FetchDataContext)
 
   return (
     <div className="container text-center">
       <PageHeader />
       <DataForm inputs={inputs} setInputs={setInputs} />
-      <DataButtons inputs={inputs} setInputs={setInputs} data={data} setUpdateData={setUpdateData} />
+      <DataButtons />
       <DataList />
     </div>
   )

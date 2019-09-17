@@ -5,12 +5,6 @@ import DataItems from './DataItems'
 const DataList = () => {
   const [data, setUpdateData] = useContext(FetchDataContext)
 
-  const handleDeleteData = sku => {
-    const newData = data.filter(i => i.sku !== sku)
-    setUpdateData(newData)
-    alert('Deleted')
-  }
-
   return (
     <div className="d-flex table-data">
       <table className="table table-striped">
@@ -27,7 +21,7 @@ const DataList = () => {
         <tbody id="tbody">
           {data.length > 0 ?
             data.map(i => (
-              <DataItems key={i.sku} sku={i.sku} productName={i.productName} price={i.price} seller={i.seller} onDelete={handleDeleteData}></DataItems>
+              <DataItems key={i.sku} sku={i.sku} productName={i.productName} price={i.price} seller={i.seller} />
             )) :
             <p className="notfound">There's no data</p >
           }

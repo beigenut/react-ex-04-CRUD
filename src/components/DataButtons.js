@@ -1,8 +1,8 @@
-import React, { setState, useState } from 'react'
-import PropTypes from 'prop-types'
+import React, { useContext } from 'react'
+import { FetchDataContext } from '../contexts/FetchDataContext'
 
-const DataButtons = props => {
-  const { inputs, setInputs, data, setUpdateData } = props
+const DataButtons = () => {
+  const [data, setUpdateData, inputs, setInputs, isUpdated, setIsUpdated] = useContext(FetchDataContext)
 
   const handleCreateData = (e) => {
     const inputEls = document.querySelectorAll('input')
@@ -18,11 +18,17 @@ const DataButtons = props => {
     setUpdateData({})
   }
 
+  const handleIsUpdate = e => {
+    setIsUpdated(!isUpdated)
+    const inputEls = document.querySelectorAll('.form-group input')
+    inputEls.forEach(e => e.style.backgroundColor = 'transparent')
+  }
+
   return (
     <div className="d-flex justify-content-center">
       <button className="btn btn-success" type="button" onClick={handleCreateData}>Create</button>
       <button className="btn btn-primary" type="button">Read</button>
-      <button className="btn btn-warning" type="button" disabled>Update</button>
+      {isUpdated ? <button className="btn btn-warning" type="button" onClick={handleIsUpdate}>Update All</button> : <button className="btn btn-warning" type="button" onClick={handleIsUpdate}>Bulk Update</button>}
       <button className="btn btn-danger" type="button" onClick={handleDeleteAll}>Delete All</button>
     </div>
   )
