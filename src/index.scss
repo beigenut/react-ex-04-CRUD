@@ -12,47 +12,36 @@ li {
   list-style-type: none;
 }
 
-.d-flex input {
-  margin: .9em 0em;
-}
-
-.d-flex button {
-  margin: 1.5em .6em;
-  padding: .3em 2.4em;
-}
-
-.d-flex table {
-  margin: 1em 10em;
-}
-
-table .btnedit {
-  color: lightgreen;
-  cursor: pointer;
-}
-
-table .btndelete {
-  color: tomato;
-  cursor: pointer;
-}
-
-/* messages */
-.updatemsg,
-.deletemsg,
-.insertmsg {
-  position: absolute;
-  top: -40px;
-}
-
-.movedown {
-  animation: slideup 3.4s ease;
-}
-
-@keyframes slideup {
-  50% {
-    top: 0
+// Table Design
+.d-flex {
+  input {
+    margin: 7px 0em;
   }
 
-  100% {
-    top: -40px;
+  button {
+    margin: 1.5em .6em;
+    padding: .3em 2.4em;
+  }
+
+  table {
+    margin: 1em 5em;
+
+    td {
+      vertical-align: middle;
+      padding: 0;
+    }
+  }
+}
+
+// Bootstrap Form Component
+.form-group {
+  margin-bottom: 0;
+
+  input {
+    text-align: center;
+  }
+
+  div {
+    max-width: 100%;
   }
 }
