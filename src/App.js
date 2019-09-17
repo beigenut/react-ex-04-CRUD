@@ -1,10 +1,10 @@
 import React from 'react';
 import './index.scss';
-import DataTable from './components/DataTable'
+import Data from './pages/Data'
 
 function App() {
   return (
-    <DataTable />
+    <Data />
   );
 }
 
