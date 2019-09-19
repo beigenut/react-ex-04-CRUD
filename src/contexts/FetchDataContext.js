@@ -12,19 +12,19 @@ export const FetchDataProvider = (props) => {
     "productName": "name1",
     "price": "13",
     "seller": "Kate",
-    "createdDate": "Sep 18 2019"
+    "createdDate": "Sep 18, \ 2019 23:15:30"
   }, {
     "sku": "2",
     "productName": "name2",
     "price": "12",
     "seller": "Joe",
-    "createdDate": "Sep 18 2019"
+    "createdDate": "Sep 18, 2019 23:15:30"
   }, {
     "sku": "3",
     "productName": "name3",
     "price": "10",
     "seller": "Francoise",
-    "createdDate": "Sep 18 2019"
+    "createdDate": "Sep 18, 2019 23:15:30"
   }]
   const [data, setUpdateData] = useState([])
   const [inputs, setInputs] = useState({})
@@ -34,9 +34,12 @@ export const FetchDataProvider = (props) => {
     setUpdateData(defaultData)
   }, [])
 
-  return (
-    <FetchDataContext.Provider value={[data, setUpdateData, inputs, setInputs, isUpdated, setIsUpdated]}>
-      {props.children}
-    </FetchDataContext.Provider>
+  return ( <
+    FetchDataContext.Provider value = {
+      [data, setUpdateData, inputs, setInputs, isUpdated, setIsUpdated]
+    } > {
+      props.children
+    } <
+    /FetchDataContext.Provider>
   )
 }

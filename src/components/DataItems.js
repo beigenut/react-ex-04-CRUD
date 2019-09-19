@@ -37,7 +37,7 @@ const DataItems = (props) => {
         <Form>
           <Form.Group controlId="productNameForm">
             <Col xs>
-              {isUpdated ? <Form.Control onChange={handleDataChange} defaultValue={productName} /> : <Form.Control plaintext readOnly defaultValue={productName} />}
+              {isUpdated ? <><Close onClick={handleBlankString} size="small" color="#fff" /> <Form.Control onChange={handleDataChange} defaultValue={productName} /></> : <Form.Control plaintext readOnly defaultValue={productName} />}
             </Col>
           </Form.Group>
         </Form>
@@ -46,7 +46,7 @@ const DataItems = (props) => {
         <Form>
           <Form.Group controlId="sellerForm">
             <Col xs>
-              {isUpdated ? <Form.Control onChange={handleDataChange} defaultValue={seller} /> : <Form.Control plaintext readOnly defaultValue={seller} />}
+              {isUpdated ? <><Close onClick={handleBlankString} size="small" color="#fff" /><Form.Control onChange={handleDataChange} defaultValue={seller} /></> : <Form.Control plaintext readOnly defaultValue={seller} />}
             </Col>
           </Form.Group>
         </Form>
@@ -55,16 +55,16 @@ const DataItems = (props) => {
         <Form>
           <Form.Group controlId="priceForm">
             <Col xs>
-              {isUpdated ? <Form.Control onChange={handleDataChange} defaultValue={price} /> : <Form.Control plaintext readOnly defaultValue={price} />}
+              {isUpdated ? <><Close onClick={handleBlankString} size="small" color="#fff" /><Form.Control onChange={handleDataChange} defaultValue={price} /></> : <Form.Control plaintext readOnly defaultValue={price} />}
             </Col>
           </Form.Group>
         </Form>
       </td>
       <td>
         <Form>
-          <Form.Group controlId="priceForm">
-            <Col xs>
-              <Form.Control plaintext readOnly defaultValue={createdDate} />
+          <Form.Group controlId="createdDate">
+            <Col xs className="created-date__div">
+              {createdDate}
             </Col>
           </Form.Group>
         </Form>
