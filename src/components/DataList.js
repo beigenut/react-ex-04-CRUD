@@ -14,14 +14,14 @@ const DataList = () => {
             <th scope="col">Product Name</th>
             <th scope="col">Seller</th>
             <th scope="col">Price</th>
-            <th scope="col">Edit</th>
+            <th scope="col">CreatedDate</th>
             <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody id="tbody">
           {data.length > 0 ?
             data.map(i => (
-              <DataItems key={i.sku} sku={i.sku} productName={i.productName} price={i.price} seller={i.seller} />
+              <DataItems key={i.sku} sku={i.sku} productName={i.productName} price={i.price} seller={i.seller} createdDate={i.createdDate} />
             )) :
             <p className="notfound">There's no data</p >
           }
