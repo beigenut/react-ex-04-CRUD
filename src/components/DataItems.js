@@ -4,16 +4,20 @@ import { Trash, Close } from 'grommet-icons'
 import { FetchDataContext } from '../contexts/FetchDataContext'
 
 const DataItems = (props) => {
-  const { sku, productName, price, seller, createdDate } = props
-  const [data, setUpdateData, inputs, setInputs, isUpdated, setIsUpdated] = useContext(FetchDataContext)
+  const { sku, productName, price, assignee, createdDate, lastUpdated } = props
+  const [data, setUpdateData, inputs, setInputs, isUpdated, setIsUpdated, tempUpdates, setTempUpdates] = useContext(FetchDataContext)
 
   const handleDeleteData = sku => {
-    const newData = data.filter(i => i.sku !== sku)
-    setUpdateData(newData)
-    alert('Deleted')
+    const deletedData = data.filter(i => i.sku !== sku)
+    setUpdateData(deletedData)
   }
 
-  const handleDataChange = (e) => {
+  const handleDataChange = (sku, e) => {
+    const temp = tempUpdates.map((i) => {
+      if (sku !== i.sku) return i;
+      return { ...i, [e.target.name]: e.target.value }
+    })
+    setTempUpdates(temp)
     e.target.style.backgroundColor = '#ffc107'
   }
 
@@ -22,13 +26,19 @@ const DataItems = (props) => {
     e.target.nextElementSibling.focus()
   }
 
+  const usdFormatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2
+  })
+
   return (
     < tr >
       <td>
         <Form>
           <Form.Group controlId="skuForm">
             <Col xs>
-              {isUpdated ? <><Close onClick={handleBlankString} size="small" color="#fff" /> <Form.Control onChange={handleDataChange} defaultValue={sku} /></> : <Form.Control plaintext readOnly defaultValue={sku} />}
+              {<Form.Control plaintext readOnly defaultValue={sku} />}
             </Col>
           </Form.Group>
         </Form>
@@ -37,16 +47,16 @@ const DataItems = (props) => {
         <Form>
           <Form.Group controlId="productNameForm">
             <Col xs>
-              {isUpdated ? <><Close onClick={handleBlankString} size="small" color="#fff" /> <Form.Control onChange={handleDataChange} defaultValue={productName} /></> : <Form.Control plaintext readOnly defaultValue={productName} />}
+              {isUpdated ? <><Close onClick={handleBlankString} size="small" color="#fff" /> <Form.Control name="productName" onChange={e => handleDataChange(sku, e)} defaultValue={productName} /></> : <Form.Control name="productName" plaintext readOnly defaultValue={productName} />}
             </Col>
           </Form.Group>
         </Form>
       </td>
       <td>
         <Form>
-          <Form.Group controlId="sellerForm">
+          <Form.Group controlId="assigneeForm">
             <Col xs>
-              {isUpdated ? <><Close onClick={handleBlankString} size="small" color="#fff" /><Form.Control onChange={handleDataChange} defaultValue={seller} /></> : <Form.Control plaintext readOnly defaultValue={seller} />}
+              {isUpdated ? <><Close onClick={handleBlankString} size="small" color="#fff" /><Form.Control onChange={e => handleDataChange(sku, e)} name="assignee" defaultValue={assignee} /></> : <Form.Control name="assignee" plaintext readOnly defaultValue={assignee} />}
             </Col>
           </Form.Group>
         </Form>
@@ -55,7 +65,7 @@ const DataItems = (props) => {
         <Form>
           <Form.Group controlId="priceForm">
             <Col xs>
-              {isUpdated ? <><Close onClick={handleBlankString} size="small" color="#fff" /><Form.Control onChange={handleDataChange} defaultValue={price} /></> : <Form.Control plaintext readOnly defaultValue={price} />}
+              {isUpdated ? <><Close onClick={handleBlankString} size="small" color="#fff" /><Form.Control name="price" onChange={e => handleDataChange(sku, e)} defaultValue={usdFormatter.format(price)} /></> : <Form.Control name="price" plaintext readOnly defaultValue={usdFormatter.format(price)} />}
             </Col>
           </Form.Group>
         </Form>
@@ -65,6 +75,15 @@ const DataItems = (props) => {
           <Form.Group controlId="createdDate">
             <Col xs className="created-date__div">
               {createdDate}
+            </Col>
+          </Form.Group>
+        </Form>
+      </td>
+      <td>
+        <Form>
+          <Form.Group controlId="lastUpdated">
+            <Col xs className="created-date__div">
+              {lastUpdated}
             </Col>
           </Form.Group>
         </Form>

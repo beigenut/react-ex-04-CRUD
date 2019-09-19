@@ -11,35 +11,45 @@ export const FetchDataProvider = (props) => {
     "sku": "1",
     "productName": "name1",
     "price": "13",
-    "seller": "Kate",
-    "createdDate": "Sep 18, \ 2019 23:15:30"
+    "assignee": "Kate",
+    "createdDate": "Sep 18, 2019 23:15:30",
+    "lastUpdated": ""
   }, {
     "sku": "2",
     "productName": "name2",
     "price": "12",
-    "seller": "Joe",
-    "createdDate": "Sep 18, 2019 23:15:30"
+    "assignee": "Joe",
+    "createdDate": "Sep 18, 2019 23:15:30",
+    "lastUpdated": ""
   }, {
     "sku": "3",
     "productName": "name3",
     "price": "10",
-    "seller": "Francoise",
-    "createdDate": "Sep 18, 2019 23:15:30"
+    "assignee": "Francoise",
+    "createdDate": "Sep 18, 2019 23:15:30",
+    "lastUpdated": ""
   }]
-  const [data, setUpdateData] = useState([])
+  // Main Data
+  const [data, setUpdateData] = useState(defaultData)
+  // Temporary Data Object. To use register new data
   const [inputs, setInputs] = useState({})
+  // Binary Data. To handle Data Update
   const [isUpdated, setIsUpdated] = useState(false)
+  // Temporary Data Object. To store adjusted data to update
+  const [tempUpdates, setTempUpdates] = useState([])
 
   useEffect(() => {
-    setUpdateData(defaultData)
+    localStorage.setItem('sku-cnt', data.length + 1)
   }, [])
 
-  return ( <
-    FetchDataContext.Provider value = {
-      [data, setUpdateData, inputs, setInputs, isUpdated, setIsUpdated]
-    } > {
-      props.children
-    } <
-    /FetchDataContext.Provider>
+  useEffect(() => {
+    setTempUpdates(data)
+  }, [data])
+
+
+  return (
+    <FetchDataContext.Provider value={[data, setUpdateData, inputs, setInputs, isUpdated, setIsUpdated, tempUpdates, setTempUpdates]}>
+      {props.children}
+    </FetchDataContext.Provider>
   )
 }
