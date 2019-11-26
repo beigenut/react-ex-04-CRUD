@@ -3,6 +3,7 @@ import { FetchDataContext } from '../contexts/FetchDataContext'
 
 const DataButtons = () => {
   const [data, setUpdateData, inputs, setInputs, isUpdated, setIsUpdated, tempUpdates, setTempUpdates] = useContext(FetchDataContext)
+  const inputEls = document.querySelectorAll('.form-group input')
 
   function handleTimeStamp() {
     let current_datetime = new Date()
@@ -33,9 +34,8 @@ const DataButtons = () => {
   }
 
   const handleIsUpdateTrue = e => {
-
     setIsUpdated(!isUpdated)
-    const inputEls = document.querySelectorAll('.form-group input')
+    setUpdateData(tempUpdates)
     inputEls.forEach(e => e.style.backgroundColor = 'transparent')
   }
 
@@ -43,7 +43,7 @@ const DataButtons = () => {
     <div className="d-flex justify-content-center">
       <button className="btn btn-success" type="button" onClick={handleCreateData}>Create</button>
       <button className="btn btn-primary" type="button">Read</button>
-      {isUpdated ? <button className="btn btn-warning" type="button" onClick={handleIsUpdateTrue}>Update All</button> : <button className="btn btn-warning" type="button" onClick={handleIsUpdateFalse}>Bulk Update</button>}
+      {isUpdated ? <button className="btn btn-warning" type="button" onClick={handleIsUpdateTrue}>Update Confrim</button> : <button className="btn btn-warning" type="button" onClick={handleIsUpdateFalse}>Bulk Update</button>}
       <button className="btn btn-danger" type="button" onClick={handleDeleteAll}>Delete All</button>
     </div>
   )

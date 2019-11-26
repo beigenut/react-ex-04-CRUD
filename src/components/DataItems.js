@@ -7,6 +7,13 @@ const DataItems = (props) => {
   const { sku, productName, price, assignee, createdDate, lastUpdated } = props
   const [data, setUpdateData, inputs, setInputs, isUpdated, setIsUpdated, tempUpdates, setTempUpdates] = useContext(FetchDataContext)
 
+  function handleTimeStamp() {
+    let current_datetime = new Date()
+    let formatted_date = (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + "-" +
+      current_datetime.getFullYear() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds()
+    return formatted_date
+  }
+
   const handleDeleteData = sku => {
     const deletedData = data.filter(i => i.sku !== sku)
     setUpdateData(deletedData)
@@ -15,7 +22,7 @@ const DataItems = (props) => {
   const handleDataChange = (sku, e) => {
     const temp = tempUpdates.map((i) => {
       if (sku !== i.sku) return i;
-      return { ...i, [e.target.name]: e.target.value }
+      return { ...i, [e.target.name]: e.target.value, lastUpdated: handleTimeStamp() }
     })
     setTempUpdates(temp)
     e.target.style.backgroundColor = '#ffc107'
@@ -65,7 +72,7 @@ const DataItems = (props) => {
         <Form>
           <Form.Group controlId="priceForm">
             <Col xs>
-              {isUpdated ? <><Close onClick={handleBlankString} size="small" color="#fff" /><Form.Control name="price" onChange={e => handleDataChange(sku, e)} defaultValue={usdFormatter.format(price)} /></> : <Form.Control name="price" plaintext readOnly defaultValue={usdFormatter.format(price)} />}
+              {isUpdated ? <><Close onClick={handleBlankString} size="small" color="#fff" /><Form.Control name="price" onChange={e => handleDataChange(sku, e)} defaultValue={price} /></> : <Form.Control name="price" plaintext readOnly defaultValue={usdFormatter.format(price)} />}
             </Col>
           </Form.Group>
         </Form>

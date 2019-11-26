@@ -12,22 +12,22 @@ export const FetchDataProvider = (props) => {
     "productName": "name1",
     "price": "13",
     "assignee": "Kate",
-    "createdDate": "Sep 18, 2019 23:15:30",
-    "lastUpdated": ""
+    "createdDate": "09-11-2019 23:15:30",
+    "lastUpdated": "-"
   }, {
     "sku": "2",
     "productName": "name2",
     "price": "12",
     "assignee": "Joe",
-    "createdDate": "Sep 18, 2019 23:15:30",
-    "lastUpdated": ""
+    "createdDate": "09-11-2019 23:15:30",
+    "lastUpdated": "-"
   }, {
     "sku": "3",
     "productName": "name3",
     "price": "10",
     "assignee": "Francoise",
-    "createdDate": "Sep 18, 2019 23:15:30",
-    "lastUpdated": ""
+    "createdDate": "08-10-2019 23:15:30",
+    "lastUpdated": "-"
   }]
   // Main Data
   const [data, setUpdateData] = useState(defaultData)
