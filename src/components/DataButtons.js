@@ -3,7 +3,7 @@ import { FetchDataContext } from '../contexts/FetchDataContext'
 import { Modal } from 'react-bootstrap';
 
 const DataButtons = () => {
-  const [data, setUpdateData, inputs, setInputs, isUpdated, setIsUpdated, tempUpdates, setTempUpdates] = useContext(FetchDataContext)
+  const [data, setUpdateData, inputs, setInputs, isUpdated, setIsUpdated, tempUpdates, setTempUpdates, isAnyBlank, setIsAnyBlank] = useContext(FetchDataContext)
   const inputEls = document.querySelectorAll('.form-group input')
 
   // Modal control
@@ -22,17 +22,19 @@ const DataButtons = () => {
     let skuCnt = localStorage.getItem('sku-cnt')
     if (inputs.productName && inputs.assignee && inputs.price) {
       const inputEls = document.querySelectorAll('.create-data input')
+      const selectEl = document.querySelector('.create-data select')
       const timeStamp = handleTimeStamp();
       const newData = { ...inputs, "createdDate": timeStamp, "sku": skuCnt }
       setUpdateData([...data, newData])
       inputEls.forEach(i => (i.value = ''))
+      selectEl.value = "Assignee"
       setInputs({})
       localStorage.setItem('sku-cnt', Number(skuCnt) + 1)
     } else alert("Fill in the blank field(s)")
   }
 
   const handleDeleteAll = e => {
-    setUpdateData({})
+    setUpdateData([])
   }
 
   const handleEnableInputs = e => {
@@ -55,12 +57,13 @@ const DataButtons = () => {
     handleClose()
   }
 
-
   return (
     <div className="d-flex justify-content-center">
       <button className="btn btn-success" type="button" onClick={handleCreateData}>Create</button>
       <button className="btn btn-primary" type="button">Read</button>
-      {isUpdated ? <button className="btn btn-warning" type="button" onClick={handleShow}>Update Confrim</button> : <button className="btn btn-warning" type="button" onClick={handleEnableInputs}>Bulk Update</button>}
+
+      {!isUpdated ? <button className="btn btn-warning" type="button" onClick={handleEnableInputs}>Bulk Update</button> : isAnyBlank ? <button className="btn btn-warning" disabled>Update Confrim</button> : <button className="btn btn-warning" type="button" onClick={handleShow}>Update Confrim</button>}
+
       <button className="btn btn-danger" type="button" onClick={handleDeleteAll}>Delete All</button>
 
       <Modal show={isModalOpen} onHide={handleClose}>

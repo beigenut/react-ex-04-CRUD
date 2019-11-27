@@ -15,8 +15,8 @@ const DataForm = (props) => {
         <input type="text" className="form-control" placeholder="Product Name" name="productName" onChange={handleInputChange} value={inputs.productName} />
         <div className="row">
           <div className="col">
-            <select className="form-control m-0" placeholder="Assignee" name="assignee" onChange={handleInputChange} >
-              <option selected disabled >Assignee</option>
+            <select className="form-control m-0" name="assignee" value={inputs.assignee} onChange={handleInputChange} >
+              <option value="Assignee" selected hidden disabled >Assignee</option>
               <option value="Kate">Kate</option>
               <option value="Joe">Joe</option>
               <option value="Francoise">Francoise</option>

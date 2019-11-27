@@ -1,11 +1,18 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Form, Col } from 'react-bootstrap'
 import { Trash, Close } from 'grommet-icons'
 import { FetchDataContext } from '../contexts/FetchDataContext'
 
 const DataItems = (props) => {
   const { sku, productName, price, assignee, createdDate, lastUpdated } = props
-  const [data, setUpdateData, inputs, setInputs, isUpdated, setIsUpdated, tempUpdates, setTempUpdates] = useContext(FetchDataContext)
+  const [data, setUpdateData, inputs, setInputs, isUpdated, setIsUpdated, tempUpdates, setTempUpdates, isAnyBlank, setIsAnyBlank] = useContext(FetchDataContext)
+
+  useEffect(() => {
+    let handleVerifyBlank = tempUpdates.some(i => {
+      return i.assignee === '' || i.price === '' || i.productName === ''
+    })
+    setIsAnyBlank(handleVerifyBlank)
+  })
 
   function handleTimeStamp() {
     let current_datetime = new Date()
@@ -28,8 +35,13 @@ const DataItems = (props) => {
     e.target.style.backgroundColor = '#ffc107'
   }
 
-  const handleBlankString = (e) => {
+  const handleBlankString = (sku, e) => {
     e.target.nextElementSibling.value = ''
+    const temp = tempUpdates.map((i) => {
+      if (sku !== i.sku) return i;
+      return { ...i, [e.target.nextElementSibling.name]: '' }
+    })
+    setTempUpdates(temp)
     e.target.nextElementSibling.focus()
   }
 
@@ -54,7 +66,7 @@ const DataItems = (props) => {
         <Form>
           <Form.Group controlId="productNameForm">
             <Col xs>
-              {isUpdated ? <><Close onClick={handleBlankString} size="small" color="#fff" /> <Form.Control name="productName" onChange={e => handleDataChange(sku, e)} defaultValue={productName} /></> : <Form.Control name="productName" plaintext readOnly defaultValue={productName} />}
+              {isUpdated ? <><Close onClick={e => { handleBlankString(sku, e) }} size="small" color="#fff" /> <Form.Control name="productName" onChange={e => handleDataChange(sku, e)} defaultValue={productName} /></> : <Form.Control name="productName" plaintext readOnly defaultValue={productName} />}
             </Col>
           </Form.Group>
         </Form>
@@ -63,7 +75,7 @@ const DataItems = (props) => {
         <Form>
           <Form.Group controlId="assigneeForm">
             <Col xs>
-              {isUpdated ? <><Close onClick={handleBlankString} size="small" color="#fff" /><Form.Control onChange={e => handleDataChange(sku, e)} name="assignee" defaultValue={assignee} /></> : <Form.Control name="assignee" plaintext readOnly defaultValue={assignee} />}
+              {isUpdated ? <><Close onClick={e => { handleBlankString(sku, e) }} size="small" color="#fff" /><Form.Control onChange={e => handleDataChange(sku, e)} name="assignee" defaultValue={assignee} /></> : <Form.Control name="assignee" plaintext readOnly defaultValue={assignee} />}
             </Col>
           </Form.Group>
         </Form>
@@ -72,7 +84,7 @@ const DataItems = (props) => {
         <Form>
           <Form.Group controlId="priceForm">
             <Col xs>
-              {isUpdated ? <><Close onClick={handleBlankString} size="small" color="#fff" /><Form.Control name="price" onChange={e => handleDataChange(sku, e)} defaultValue={price} /></> : <Form.Control name="price" plaintext readOnly defaultValue={usdFormatter.format(price)} />}
+              {isUpdated ? <><Close onClick={e => { handleBlankString(sku, e) }} size="small" color="#fff" /><Form.Control name="price" onChange={e => handleDataChange(sku, e)} defaultValue={price} /></> : <Form.Control name="price" plaintext readOnly defaultValue={usdFormatter.format(price)} />}
             </Col>
           </Form.Group>
         </Form>

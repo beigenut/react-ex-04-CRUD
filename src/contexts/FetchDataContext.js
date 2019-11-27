@@ -37,6 +37,8 @@ export const FetchDataProvider = (props) => {
   const [isUpdated, setIsUpdated] = useState(false)
   // Temporary Data Object. To store adjusted data to update
   const [tempUpdates, setTempUpdates] = useState([])
+  // Binary. To verify all inputs are filled
+  const [isAnyBlank, setIsAnyBlank] = useState(false)
 
   useEffect(() => {
     localStorage.setItem('sku-cnt', data.length + 1)
@@ -48,7 +50,7 @@ export const FetchDataProvider = (props) => {
 
 
   return (
-    <FetchDataContext.Provider value={[data, setUpdateData, inputs, setInputs, isUpdated, setIsUpdated, tempUpdates, setTempUpdates]}>
+    <FetchDataContext.Provider value={[data, setUpdateData, inputs, setInputs, isUpdated, setIsUpdated, tempUpdates, setTempUpdates, isAnyBlank, setIsAnyBlank]}>
       {props.children}
     </FetchDataContext.Provider>
   )
