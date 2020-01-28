@@ -1,7 +1,7 @@
 <p align="center">
   <h3 align="center">https://github.com/beigenut/react-ex-04-data-search</h3>
   <p align="center">
-  <br> <a href="#"> View website</a> <br>
+  <br> <a href="https://www.react-curd-ex.netlify.com"> View website</a> <br>
 </p>
 </p>
 
